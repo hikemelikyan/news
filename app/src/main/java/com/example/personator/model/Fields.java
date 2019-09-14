@@ -1,21 +1,10 @@
 package com.example.personator.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Fields {
 
-    @SerializedName("headline")
-    @Expose
     private String headline;
-    @SerializedName("firstPublicationDate")
-    @Expose
     private String firstPublicationDate;
-    @SerializedName("thumbnail")
-    @Expose
     private String thumbnail;
-    @SerializedName("bodyText")
-    @Expose
     private String bodyText;
 
     public String getHeadline() {
