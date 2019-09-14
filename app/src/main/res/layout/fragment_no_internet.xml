@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="5"
-    tools:context=".fragment.NoInternet">
+    tools:context=".view.activity.NoInternet">
 
 
     <ImageView

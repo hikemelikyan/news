@@ -9,4 +9,9 @@
         <item name="fontFamily">@font/abel</item>
     </style>
 
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/black</item>
+
+    </style>
 </resources>
