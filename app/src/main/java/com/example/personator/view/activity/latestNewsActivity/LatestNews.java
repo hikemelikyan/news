@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.example.personator.R;
 import com.example.personator.model.Result;
 import com.example.personator.view.activity.newsDetailsActivity.NewsDetails;
-import com.example.personator.view.activity.pinnedItemActivity.PinnedItemFragment;
 import com.example.personator.view.adapters.NewsAdapter;
 import com.example.personator.view.adapters.PinnedNewsAdapter;
 
@@ -28,7 +27,7 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 import io.realm.Realm;
 
-public class LatestNews extends Fragment implements View.OnClickListener, PinnedNewsAdapter.PinnedClickListener {
+public class LatestNews extends Fragment implements View.OnClickListener/*, PinnedNewsAdapter.PinnedClickListener */{
 
     public static final String LIST = "list";
     public static final String GRID = "grid";
@@ -135,8 +134,8 @@ public class LatestNews extends Fragment implements View.OnClickListener, Pinned
         } else if (mSharedPref.getString("view", "").equals(LIST))
             mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerPinned.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        newsAdapter = new NewsAdapter(getActivity(), LatestNews.this::clicked);
-        pinnedNewsAdapter = new PinnedNewsAdapter(getActivity(), this);
+        newsAdapter = new NewsAdapter(getActivity(), LatestNews.this::clicked,new ArrayList<>());
+//        pinnedNewsAdapter = new PinnedNewsAdapter(getActivity(), this);
         mRecycler.setHasFixedSize(true);
         mRecycler.setAdapter(newsAdapter);
         mRecyclerPinned.setHasFixedSize(true);
@@ -258,14 +257,14 @@ public class LatestNews extends Fragment implements View.OnClickListener, Pinned
         }
     }
 
-    @Override
-    public void pinnedItemClicked(int code) {
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.id_container, PinnedItemFragment.newInstance(code))
-                .addToBackStack(null)
-                .commit();
-    }
+//    @Override
+//    public void pinnedItemClicked(int code) {
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.id_container, PinnedItemFragment.newInstance(code))
+//                .addToBackStack(null)
+//                .commit();
+//    }
 
     @Override
     public void onAttach(Context context) {

@@ -14,7 +14,6 @@ import retrofit2.Retrofit;
 
 public class LiveDataCallAdapterFactory extends CallAdapter.Factory {
 
-    @Nullable
     @Override
     public CallAdapter<?, ?> get(@NonNull Type returnType, @NonNull Annotation[] annotations, @NonNull Retrofit retrofit) {
         if (getRawType(returnType) != LiveData.class) {

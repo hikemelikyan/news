@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.example.personator.BuildConfig;
 import com.example.personator.shared.data.remote.network.LiveDataCallAdapterFactory;
@@ -20,6 +21,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,7 +36,7 @@ import static com.example.personator.shared.config.Common.PAGE_SIZE;
 
 @Module
 public class NetModule {
-    private int mMaxStale = 60 * 60 * 24 * 5;
+    private int mMaxStale = 60 * 24 * 5;
 
     @Provides
     @Singleton
@@ -55,21 +57,29 @@ public class NetModule {
     @Singleton
     OkHttpClient providesOkHttpClient(Cache cache, Application application) {
         final SharedPreferencesHelper shared = new SharedPreferencesHelper(application);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(chain -> {
-            Request originalRequest = chain.request();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(chain -> {
+                    Request originalRequest = chain.request();
 
-            Request request = originalRequest.newBuilder()
-                    .addHeader("api-key", shared.getStringSharedPreferences(API_KEY))
-                    .addHeader("format", shared.getStringSharedPreferences(JSON))
-                    .addHeader("show-fields", shared.getStringSharedPreferences(FIELDS_TO_SHOW))
-                    .addHeader("page-size", shared.getStringSharedPreferences(PAGE_SIZE))
-                    .addHeader("Cache-control", (checkNetworkConnectionStatus(application)) ?
-                            "public,max-age=" + mMaxStale : "public,max-stale=" + mMaxStale)
-                    .build();
-            Response response = chain.proceed(request);
-            response.cacheResponse();
-            return response;
-        })
+
+                    HttpUrl url = chain.request().url()
+                            .newBuilder()
+                            .addQueryParameter("api-key", shared.getStringSharedPreferences(API_KEY))
+                            .addQueryParameter("format", shared.getStringSharedPreferences(JSON))
+                            .addQueryParameter("show-fields", shared.getStringSharedPreferences(FIELDS_TO_SHOW))
+                            .addQueryParameter("page-size", shared.getStringSharedPreferences(PAGE_SIZE))
+                            .build();
+
+                    Request request = originalRequest.newBuilder()
+                            .addHeader("Cache-control", (checkNetworkConnectionStatus(application)) ?
+                                    "public,max-age=" + mMaxStale : "public,max-stale=" + mMaxStale)
+                            .url(url)
+                            .build();
+                    Log.d("LOGGGGG", "NET");
+                    Response response = chain.proceed(request);
+                    response.cacheResponse();
+                    return response;
+                })
                 .cache(cache)
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)

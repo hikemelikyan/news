@@ -1,4 +1,4 @@
-package com.example.personator.view.activity.OfflineArticles;
+package com.example.personator.view.activity.offlineArticles;
 
 
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public class OfflineArticles extends Fragment implements SavedArticlesAdapter.On
     public void savedItemClicked(int code) {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.id_container, SavedItemFragment.newInstance(code))
+//                .replace(R.id.id_container, SavedItemFragment.newInstance(code))
                 .addToBackStack(null)
                 .commit();
     }

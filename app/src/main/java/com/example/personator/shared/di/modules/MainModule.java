@@ -1,6 +1,7 @@
 package com.example.personator.shared.di.modules;
 
 import com.example.personator.shared.data.remote.NewsAPI;
+import com.example.personator.shared.di.scopes.MainScope;
 
 import javax.inject.Singleton;
 
@@ -10,9 +11,8 @@ import retrofit2.Retrofit;
 
 @Module
 public class MainModule {
-
     @Provides
-    @Singleton
+    @MainScope
     NewsAPI providesNewsApi(Retrofit retrofit){
         return retrofit.create(NewsAPI.class);
     }

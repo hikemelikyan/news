@@ -3,8 +3,8 @@ package com.example.personator.model;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class Result {
 
     private boolean isHosted;

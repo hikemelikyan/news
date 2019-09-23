@@ -23,22 +23,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.GridViewHolder
 
     private Context mContext;
     private ImageClickListener imageClickListener;
-    public static List<Result> mList;
+    private List<Result> mList;
 
     public interface ImageClickListener {
         void clicked(int code);
     }
 
-    public NewsAdapter(Context context, ImageClickListener imageClickListener) {
+    public NewsAdapter(Context context, ImageClickListener imageClickListener, List<Result> mList) {
         this.mContext = context;
-        mList = new ArrayList<>();
+        this.mList = new ArrayList<>();
+        this.mList = mList;
         this.imageClickListener = imageClickListener;
-    }
-
-    public void setData(List<Result> mList) {
-        NewsAdapter.mList.clear();
-        NewsAdapter.mList.addAll(mList);
-        notifyDataSetChanged();
     }
 
     private Result getData(int pos) {

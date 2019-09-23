@@ -1,4 +1,4 @@
-package com.example.personator.view.activity;
+package com.example.personator.view.activity.base;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.personator.viewmodel.BaseViewModel;
+import com.example.personator.viewmodel.base.BaseViewModel;
 
 public class BaseFragment extends Fragment implements BaseView {
 

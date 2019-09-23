@@ -1,4 +1,4 @@
-package com.example.personator.view.activity;
+package com.example.personator.view.activity.base;
 
 import androidx.annotation.StringRes;
 

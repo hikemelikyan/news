@@ -1,4 +1,4 @@
-package com.example.personator.view.activity;
+package com.example.personator.view.activity.base;
 
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -7,19 +7,21 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.personator.R;
-import com.example.personator.viewmodel.BaseViewModel;
+import com.example.personator.view.activity.base.BaseView;
+import com.example.personator.viewmodel.base.BaseViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 @SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity implements BaseView {
 
 
-    public <T extends BaseViewModel> T createViewModel(Class<T> viewModelClass, BaseView view) {
+    public <T extends BaseViewModel> T createViewModel(@NonNull Class<T> viewModelClass, @NonNull BaseView view) {
         T mViewModel = ViewModelProviders.of(this).get(viewModelClass);
         mViewModel.getNetworkErrorLiveData().observe(this, aBoolean -> view.showNetworkError());
         mViewModel.getServerErrorLiveData().observe(this, aBoolean -> view.showServerError());

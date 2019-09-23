@@ -31,7 +31,7 @@ public class NewsApp extends Application {
         return mInstance;
     }
 
-    public MainComponent getmMainComponent(){
+    public MainComponent getMainComponent(){
         mMainComponent = DaggerMainComponent.builder()
                 .appComponent(mAppComponent)
                 .mainModule(new MainModule())
